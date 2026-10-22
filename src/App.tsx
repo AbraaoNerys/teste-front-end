@@ -4,10 +4,12 @@ import { formatPrice, formatInstallment } from './utils/format';
 export default function App() {
   const { products, loading, error } = useProducts();
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  if (loading) return <p role="status">Carregando produtos...</p>;
+  if (error) return <p role="alert">{error}</p>;
 
-  console.log(products);
+  // Durante o carregamento products também é [], então o vazio só é avaliado depois.
+  if (products.length === 0) return <p>Nenhum produto disponível no momento.</p>;
+
   return (
     <ul>
       {products.map((p) => (
