@@ -4,11 +4,10 @@ import { categoryById } from '../data/productCategories';
 const OFFICIAL_URL =
   'https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json';
 
-// Em desenvolvimento, passa pelo proxy do Vite para evitar o bloqueio de CORS
+// O proxy evita CORS em desenvolvimento; o CORS no build publicado ainda não foi verificado.
 const PRODUCTS_URL = import.meta.env.DEV
   ? '/api-produtos/teste-front-end/junior/tecnologia/lista-produtos/produtos.json'
   : OFFICIAL_URL;
-
 
 function slugify(text: string): string {
   return text
@@ -19,6 +18,7 @@ function slugify(text: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
+// A API não fornece id nem categoria; ambos são definidos localmente.
 function toProduct(api: ApiProduct): Product {
   const id = slugify(api.productName);
   return {
@@ -32,9 +32,30 @@ function toProduct(api: ApiProduct): Product {
 }
 
 export async function fetchProducts(): Promise<Product[]> {
-  const response = await fetch(PRODUCTS_URL);
-  if (!response.ok) throw new Error(`Falha ao carregar produtos (${response.status})`);
-  const data: ApiResponse = await response.json();
-  if (!data.success) throw new Error('A API respondeu sem sucesso');
+  let response: Response;
+
+  try {
+    response = await fetch(PRODUCTS_URL);
+  } catch {
+    throw new Error('Não foi possível conectar ao servidor de produtos.');
+  }
+
+  if (!response.ok) {
+    throw new Error(`Não foi possível carregar os produtos (status ${response.status}).`);
+  }
+
+  let data: ApiResponse;
+
+  try {
+    // O tipo descreve o formato esperado, mas não valida a resposta em tempo de execução.
+    data = (await response.json()) as ApiResponse;
+  } catch {
+    throw new Error('A resposta do servidor de produtos não contém um JSON válido.');
+  }
+
+  if (data?.success !== true || !Array.isArray(data?.products)) {
+    throw new Error('A resposta da API de produtos veio em um formato inesperado.');
+  }
+
   return data.products.map(toProduct);
 }
