@@ -1,0 +1,14 @@
+@use 'variables' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-main;
+  color: $dark-gray;
+  background: #fff;
+}
