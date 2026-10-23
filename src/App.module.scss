@@ -1,8 +1,14 @@
-.main {
-  padding: 80px 0;
+.showcases {
+  margin-top: 90px;
 }
 
 // Espaçamento provisório; será substituído pelos banners na etapa G.
-.main > section + section {
+.showcases > section + section {
   margin-top: 80px;
+}
+
+.showcases > p {
+  width: 1280px;
+  margin: 0 auto;
+  text-align: center;
 }
