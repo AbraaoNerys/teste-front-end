@@ -1,34 +1,20 @@
 import type { MouseEvent } from 'react';
-import tecnologia from '../../assets/categorias/tecnologia.svg';
-import supermercado from '../../assets/categorias/supermercado.svg';
-import bebidas from '../../assets/categorias/bebidas.svg';
-import ferramentas from '../../assets/categorias/ferramentas.svg';
-import saude from '../../assets/categorias/saude.svg';
-import esportesEFitness from '../../assets/categorias/esportes-e-fitness.svg';
-import moda from '../../assets/categorias/moda.svg';
+import { departments } from '../../data/departments';
+import type { DepartmentId } from '../../data/departments';
 import styles from './CategoryList.module.scss';
 
-interface Category {
-  label: string;
-  icon: string;
-  active?: boolean;
+interface CategoryListProps {
+  activeId: DepartmentId;
+  onSelect: (id: DepartmentId) => void;
 }
 
-const categories: Category[] = [
-  { label: 'Tecnologia', icon: tecnologia, active: true },
-  { label: 'Supermercado', icon: supermercado },
-  { label: 'Bebidas', icon: bebidas },
-  { label: 'Ferramentas', icon: ferramentas },
-  { label: 'Saúde', icon: saude },
-  { label: 'Esportes e Fitness', icon: esportesEFitness },
-  { label: 'Moda', icon: moda },
-];
+export function CategoryList({ activeId, onSelect }: CategoryListProps) {
+  function handleClick(event: MouseEvent<HTMLAnchorElement>, id: DepartmentId) {
+    // Sem destino de página: só troca a categoria selecionada.
+    event.preventDefault();
+    onSelect(id);
+  }
 
-function preventNavigation(event: MouseEvent<HTMLAnchorElement>) {
-  event.preventDefault();
-}
-
-export function CategoryList() {
   return (
     <section className={styles.section} aria-labelledby="category-list-title">
       <h2 className={styles.visuallyHidden} id="category-list-title">
@@ -36,20 +22,24 @@ export function CategoryList() {
       </h2>
 
       <div className={styles.list}>
-        {categories.map((category) => (
-          <a
-            className={`${styles.item} ${category.active ? styles.active : ''}`}
-            href="#"
-            aria-current={category.active ? 'true' : undefined}
-            onClick={preventNavigation}
-            key={category.label}
-          >
-            <span className={styles.tile}>
-              <img src={category.icon} alt="" />
-            </span>
-            <span className={styles.label}>{category.label}</span>
-          </a>
-        ))}
+        {departments.map((department) => {
+          const isActive = department.id === activeId;
+
+          return (
+            <a
+              className={`${styles.item} ${isActive ? styles.active : ''}`}
+              href="#"
+              aria-current={isActive ? 'true' : undefined}
+              onClick={(event) => handleClick(event, department.id)}
+              key={department.id}
+            >
+              <span className={styles.tile}>
+                <img src={department.icon} alt="" />
+              </span>
+              <span className={styles.label}>{department.label}</span>
+            </a>
+          );
+        })}
       </div>
     </section>
   );

@@ -42,7 +42,9 @@ export function ProductShowcase({
       )}
 
       {visibleProducts.length === 0 ? (
-        <p className={styles.empty}>Nenhum produto nesta categoria.</p>
+        <p className={styles.empty} role="status">
+          Ainda não há produtos cadastrados em {selectedTab?.label}.
+        </p>
       ) : (
         <div className={styles.carouselWrapper}>
           <ProductCarousel

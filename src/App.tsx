@@ -8,6 +8,8 @@ import { Newsletter } from './components/Newsletter/Newsletter';
 import { ProductModal } from './components/ProductModal/ProductModal';
 import { ProductShowcase } from './components/ProductShowcase/ProductShowcase';
 import { PromoBanners } from './components/PromoBanners/PromoBanners';
+import { departments } from './data/departments';
+import type { DepartmentId } from './data/departments';
 import { useProducts } from './hooks/useProducts';
 import type { Product } from './types/product';
 import styles from './App.module.scss';
@@ -15,8 +17,12 @@ import styles from './App.module.scss';
 export default function App() {
   const { products, loading, error } = useProducts();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [activeDepartment, setActiveDepartment] = useState<DepartmentId>('tecnologia');
 
-  const hasProducts = !loading && !error && products.length > 0;
+  // Todos os produtos do JSON oficial são de tecnologia (o endereço do JSON é .../tecnologia/...).
+  const hasProducts =
+    !loading && !error && products.length > 0 && activeDepartment === 'tecnologia';
+  const department = departments.find((item) => item.id === activeDepartment);
   let firstShowcaseContent;
 
   if (loading) {
@@ -26,6 +32,10 @@ export default function App() {
   } else if (products.length === 0) {
     // Durante o carregamento products também é [], então o vazio só é avaliado depois.
     firstShowcaseContent = <p>Nenhum produto disponível no momento.</p>;
+  } else if (activeDepartment !== 'tecnologia') {
+    firstShowcaseContent = (
+      <p role="status">Ainda não há produtos cadastrados em {department?.label}.</p>
+    );
   } else {
     firstShowcaseContent = (
       <ProductShowcase
@@ -44,7 +54,7 @@ export default function App() {
 
       <main>
         <Hero />
-        <CategoryList />
+        <CategoryList activeId={activeDepartment} onSelect={setActiveDepartment} />
         <div className={styles.sections}>
           <div className={hasProducts ? undefined : styles.state}>
             {firstShowcaseContent}
