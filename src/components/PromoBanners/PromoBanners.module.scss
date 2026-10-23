@@ -1,0 +1,96 @@
+@use 'sass:color';
+@use '../../styles/variables' as *;
+
+.banners {
+  display: flex;
+  gap: 13px;
+  width: 1281px;
+  height: 350px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.banner {
+  position: relative;
+  flex: 0 0 634px;
+  width: 634px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 634px;
+  height: 350px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 89px;
+  left: 0;
+  width: 634px;
+  height: 261px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000 85.039%);
+  border-radius: 0 0 20px 20px;
+  opacity: 0.8;
+}
+
+.title,
+.description,
+.callToAction {
+  position: absolute;
+  z-index: 1;
+}
+
+.title {
+  top: 114px;
+  left: 44px;
+  width: 216px;
+  margin: 0;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.description {
+  top: 182px;
+  left: 44px;
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.callToAction {
+  top: 262px;
+  left: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 145px;
+  height: 48px;
+  color: $purple;
+  background: $yellow;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.28px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.callToAction:hover {
+  background: color.adjust($yellow, $lightness: -8%);
+}
+
+.callToAction:focus-visible {
+  outline: 2px solid $blue;
+  outline-offset: 2px;
+}
