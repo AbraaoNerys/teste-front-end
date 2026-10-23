@@ -1,0 +1,100 @@
+@use 'sass:color';
+@use '../../styles/variables' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 500px;
+  padding: 32px 13.51px 16px 12.39px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 19px rgba(0, 0, 0, 0.22);
+}
+
+.heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 278.1px;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.imageWrapper {
+  display: block;
+  width: 278.1px;
+  height: 228px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.name {
+  display: -webkit-box;
+  width: 275.85px;
+  min-height: 45px;
+  margin-top: 9px;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.price {
+  margin: 39px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.installment {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.shipping {
+  margin: 7px 0 0;
+  color: $blue;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.buyButton {
+  width: 275.85px;
+  height: 44px;
+  margin-top: auto;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: $blue;
+  border: 0;
+  border-radius: 4px;
+}
+
+.buyButton:hover {
+  background: color.adjust($blue, $lightness: -8%);
+}
+
+.details:focus-visible,
+.buyButton:focus-visible {
+  outline: 2px solid $blue;
+  outline-offset: 2px;
+}

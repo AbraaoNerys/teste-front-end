@@ -12,3 +12,13 @@ body {
   color: $dark-gray;
   background: #fff;
 }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
