@@ -1,0 +1,150 @@
+@use '../../styles/variables' as *;
+
+.footer {
+  width: 100%;
+}
+
+.mainFooter {
+  width: 100%;
+  height: 282px;
+  background: $footer-bg;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 90px;
+  width: 1280px;
+  height: 282px;
+  margin: 0 auto;
+  padding: 42px 0;
+}
+
+.company {
+  display: flex;
+  flex: 0 0 354px;
+  flex-direction: column;
+  gap: 27px;
+  width: 354px;
+}
+
+.companyDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.logoLink {
+  display: block;
+  width: 164px;
+  height: 48px;
+}
+
+.logoLink img {
+  width: 164px;
+  height: 48px;
+}
+
+.company p {
+  width: 354px;
+  margin: 0;
+  color: $dark-gray;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.socialLink {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.socialLink img {
+  width: 24px;
+  height: 24px;
+}
+
+.socialLink:hover {
+  opacity: 0.75;
+}
+
+.divider {
+  flex: 0 0 1px;
+  width: 1px;
+  height: 198px;
+  background: #e1e1e1;
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: 121px 150px 160px;
+  column-gap: 100px;
+  color: $footer-text;
+}
+
+.navigationColumn h2 {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.navigationColumn ul {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.work-sans {
+  font-family: $font-modal;
+}
+
+.poppins {
+  font-family: $font-main;
+}
+
+.navigation a {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navigation a:hover {
+  color: $dark-gray;
+}
+
+.logoLink:focus-visible,
+.socialLink:focus-visible,
+.navigation a:focus-visible {
+  outline: 2px solid $blue;
+  outline-offset: 2px;
+}
+
+.bottomBar {
+  width: 100%;
+  height: 47px;
+  background: #fff;
+  text-align: center;
+}
+
+.bottomBar p {
+  margin: 0;
+  padding-top: 13px;
+  color: $dark-gray;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: normal;
+}
