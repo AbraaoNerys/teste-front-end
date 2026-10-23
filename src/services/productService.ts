@@ -1,4 +1,4 @@
-import type { ApiProduct, ApiResponse, Product } from '../types/product';
+import type { ApiProduct, Product } from '../types/product';
 import { categoryById } from '../data/productCategories';
 
 const OFFICIAL_URL =
@@ -20,16 +20,37 @@ function slugify(text: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
+function isApiProduct(value: unknown): value is ApiProduct {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return false;
+  }
+
+  const product = value as Record<string, unknown>;
+
+  return (
+    typeof product.productName === 'string' &&
+    product.productName.trim().length > 0 &&
+    typeof product.descriptionShort === 'string' &&
+    typeof product.photo === 'string' &&
+    product.photo.trim().length > 0 &&
+    typeof product.price === 'number' &&
+    Number.isFinite(product.price) &&
+    Number.isInteger(product.price) &&
+    product.price >= 0
+  );
+}
+
 // A API não fornece id nem categoria; ambos são definidos localmente.
-function toProduct(api: ApiProduct): Product {
-  const id = slugify(api.productName);
+function toProduct(api: ApiProduct, id: string): Product {
+  const categoryId = slugify(api.productName);
+
   return {
     id,
     name: api.productName,
     description: api.descriptionShort,
     photo: api.photo,
     price: api.price,
-    category: categoryById[id] ?? 'outros',
+    category: categoryById[categoryId] ?? 'outros',
   };
 }
 
@@ -46,18 +67,39 @@ export async function fetchProducts(): Promise<Product[]> {
     throw new Error(`Não foi possível carregar os produtos (status ${response.status}).`);
   }
 
-  let data: ApiResponse;
+  let data: unknown;
 
   try {
-    // O tipo descreve o formato esperado, mas não valida a resposta em tempo de execução.
-    data = (await response.json()) as ApiResponse;
+    data = await response.json();
   } catch {
     throw new Error('A resposta do servidor de produtos não contém um JSON válido.');
   }
 
-  if (data?.success !== true || !Array.isArray(data?.products)) {
+  if (
+    typeof data !== 'object' ||
+    data === null ||
+    !('success' in data) ||
+    data.success !== true ||
+    !('products' in data) ||
+    !Array.isArray(data.products)
+  ) {
     throw new Error('A resposta da API de produtos veio em um formato inesperado.');
   }
 
-  return data.products.map(toProduct);
+  const validProducts = data.products.filter(isApiProduct);
+
+  if (data.products.length > 0 && validProducts.length === 0) {
+    throw new Error('A resposta da API de produtos veio em um formato inesperado.');
+  }
+
+  const idOccurrences = new Map<string, number>();
+
+  return validProducts.map((api) => {
+    const baseId = slugify(api.productName) || 'produto';
+    const occurrence = (idOccurrences.get(baseId) ?? 0) + 1;
+    idOccurrences.set(baseId, occurrence);
+
+    const id = occurrence === 1 ? baseId : `${baseId}-${occurrence}`;
+    return toProduct(api, id);
+  });
 }
