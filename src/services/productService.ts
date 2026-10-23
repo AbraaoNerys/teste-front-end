@@ -4,10 +4,12 @@ import { categoryById } from '../data/productCategories';
 const OFFICIAL_URL =
   'https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json';
 
-// O proxy evita CORS em desenvolvimento; o CORS no build publicado ainda não foi verificado.
-const PRODUCTS_URL = import.meta.env.DEV
-  ? '/api-produtos/teste-front-end/junior/tecnologia/lista-produtos/produtos.json'
-  : OFFICIAL_URL;
+// Em desenvolvimento e no preview, o proxy consulta esta URL oficial sem expor o CORS ao navegador.
+const DEFAULT_PRODUCTS_URL = OFFICIAL_URL.replace(
+  'https://app.econverse.com.br',
+  '/api-produtos',
+);
+const PRODUCTS_URL = import.meta.env.VITE_PRODUCTS_URL ?? DEFAULT_PRODUCTS_URL;
 
 function slugify(text: string): string {
   return text
