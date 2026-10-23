@@ -26,11 +26,17 @@
   transform: translateX(
     calc(var(--index) * -1 * (var(--card-width) + var(--card-gap)))
   );
+  transition: transform 0.4s ease;
 }
 
 .item {
   flex: 0 0 var(--card-width);
   width: var(--card-width);
+  transition: transform 0.3s ease;
+}
+
+.item[inert]{
+  opacity: 0;
 }
 
 .arrow {
