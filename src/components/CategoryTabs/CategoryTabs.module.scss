@@ -9,8 +9,9 @@
 
 .tab {
   flex: 1;
+  min-width: 0;
   height: 40px;
-  padding: 12px 58px;
+  padding: 12px 0;
   margin-right: -1px;
   color: #3b3b3b;
   font-size: 16px;
