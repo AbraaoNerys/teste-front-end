@@ -7,6 +7,7 @@ import { SectionTitle } from '../SectionTitle/SectionTitle';
 import styles from './ProductShowcase.module.scss';
 
 interface ProductShowcaseProps {
+  carouselLabel: string;
   title: string;
   products: Product[];
   onSelectProduct: (product: Product) => void;
@@ -14,6 +15,7 @@ interface ProductShowcaseProps {
 }
 
 export function ProductShowcase({
+  carouselLabel,
   title,
   products,
   onSelectProduct,
@@ -28,7 +30,7 @@ export function ProductShowcase({
       : products.filter((product) => product.category === selectedTab?.category);
 
   return (
-    <section className={styles.showcase} aria-labelledby={headingId}>
+    <section className={styles.showcase}>
       <SectionTitle id={headingId} title={title} showSeeAll={!withTabs} />
 
       {withTabs && (
@@ -45,6 +47,7 @@ export function ProductShowcase({
         <div className={styles.carouselWrapper}>
           <ProductCarousel
             key={withTabs ? activeTab : 'all-products'}
+            ariaLabel={carouselLabel}
             products={visibleProducts}
             onSelectProduct={onSelectProduct}
           />

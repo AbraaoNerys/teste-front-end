@@ -25,17 +25,20 @@ export default function App() {
     showcaseContent = (
       <>
         <ProductShowcase
+          carouselLabel="Carrossel de produtos 1"
           title="Produtos relacionados"
           products={products}
           onSelectProduct={setSelectedProduct}
           withTabs
         />
         <ProductShowcase
+          carouselLabel="Carrossel de produtos 2"
           title="Produtos relacionados"
           products={products}
           onSelectProduct={setSelectedProduct}
         />
         <ProductShowcase
+          carouselLabel="Carrossel de produtos 3"
           title="Produtos relacionados"
           products={products}
           onSelectProduct={setSelectedProduct}

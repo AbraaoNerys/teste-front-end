@@ -4,6 +4,7 @@ import { ProductCard } from '../ProductCard/ProductCard';
 import styles from './ProductCarousel.module.scss';
 
 interface ProductCarouselProps {
+  ariaLabel: string;
   products: Product[];
   onSelectProduct: (product: Product) => void;
 }
@@ -15,7 +16,11 @@ type CarouselStyle = CSSProperties & {
 
 const VISIBLE_CARDS = 4;
 
-export function ProductCarousel({ products, onSelectProduct }: ProductCarouselProps) {
+export function ProductCarousel({
+  ariaLabel,
+  products,
+  onSelectProduct,
+}: ProductCarouselProps) {
   const [index, setIndex] = useState(0);
   const visibleCards = Math.min(VISIBLE_CARDS, products.length);
   const maxIndex = Math.max(0, products.length - VISIBLE_CARDS);
@@ -30,7 +35,7 @@ export function ProductCarousel({ products, onSelectProduct }: ProductCarouselPr
     <section
       className={styles.carousel}
       style={carouselStyle}
-      aria-label="Produtos relacionados"
+      aria-label={ariaLabel}
       aria-roledescription="carrossel"
     >
       {showArrows && (
