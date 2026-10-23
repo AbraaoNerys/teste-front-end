@@ -62,7 +62,10 @@ export function Newsletter() {
               type="text"
               placeholder="Digite seu nome"
               value={name}
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => {
+                setName(event.target.value);
+                setFeedback(null);
+              }}
             />
 
             <label className={styles.visuallyHidden} htmlFor="newsletter-email">
@@ -73,7 +76,10 @@ export function Newsletter() {
               type="email"
               placeholder="Digite seu e-mail"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                setFeedback(null);
+              }}
             />
 
             <button type="submit">Inscrever</button>
@@ -83,7 +89,10 @@ export function Newsletter() {
             <input
               type="checkbox"
               checked={acceptedTerms}
-              onChange={(event) => setAcceptedTerms(event.target.checked)}
+              onChange={(event) => {
+                setAcceptedTerms(event.target.checked);
+                setFeedback(null);
+              }}
             />
             <span>Aceito os termos e condições</span>
           </label>
