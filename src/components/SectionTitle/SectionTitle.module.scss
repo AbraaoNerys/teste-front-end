@@ -12,11 +12,14 @@
   width: 1138px;
   height: 45px;
   margin: 0 auto;
+  transform: translateX(-1.5px);
 }
 
 .line {
+  align-self: start;
   height: 1px;
-  background: #e5e5e5;
+  margin-top: 17px;
+  background: #dedede;
 }
 
 .title {
