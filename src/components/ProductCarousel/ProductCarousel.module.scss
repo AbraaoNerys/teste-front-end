@@ -5,15 +5,18 @@
   --card-gap: 18px;
 
   position: relative;
+  display: flow-root;
   width: 1364px;
   margin: 0 auto;
 }
 
 .viewport {
+  box-sizing: content-box;
   width: calc(
     var(--visible) * var(--card-width) + (var(--visible) - 1) * var(--card-gap)
   );
-  margin: 0 auto;
+  padding: 24px 16px 40px;
+  margin: -24px auto -40px;
   overflow: hidden;
 }
 
