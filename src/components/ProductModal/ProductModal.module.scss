@@ -18,6 +18,7 @@
 
 .content {
   position: relative;
+  display: flow-root;
   width: 100%;
   min-height: 299px;
   background: #fff;
@@ -66,14 +67,13 @@
 }
 
 .details {
-  position: absolute;
-  top: 63px;
-  left: 390px;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 32px;
   align-items: flex-start;
   width: 328px;
+  margin: 63px 51px 33px 390px;
 }
 
 .identity {
@@ -93,6 +93,8 @@
 }
 
 .name {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -109,6 +111,7 @@
 }
 
 .description {
+  min-width: 0;
   margin: 0;
   color: $mid-gray;
   font-family: $font-modal;
@@ -116,6 +119,7 @@
   font-weight: 500;
   line-height: 1.505;
   letter-spacing: 0.5px;
+  overflow-wrap: anywhere;
 }
 
 .moreDetails {
