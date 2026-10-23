@@ -18,7 +18,11 @@ export function ProductCard({ product, onSelect }: ProductCardProps) {
           onClick={() => onSelect(product)}
         >
           <span className={styles.imageWrapper}>
-            <img className={styles.image} src={product.photo} alt={product.name} />
+            <img
+              className={styles.image}
+              src={product.photo}
+              alt={`Foto de ${product.name}`}
+            />
           </span>
           <span className={styles.name}>{product.name}</span>
         </button>
