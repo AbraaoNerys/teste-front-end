@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { BrandList } from './components/BrandList/BrandList';
 import { CategoryList } from './components/CategoryList/CategoryList';
+import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Hero } from './components/Hero/Hero';
+import { Newsletter } from './components/Newsletter/Newsletter';
 import { ProductModal } from './components/ProductModal/ProductModal';
 import { ProductShowcase } from './components/ProductShowcase/ProductShowcase';
+import { PromoBanners } from './components/PromoBanners/PromoBanners';
 import { useProducts } from './hooks/useProducts';
 import type { Product } from './types/product';
 import styles from './App.module.scss';
@@ -12,38 +16,25 @@ export default function App() {
   const { products, loading, error } = useProducts();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  let showcaseContent;
+  const hasProducts = !loading && !error && products.length > 0;
+  let firstShowcaseContent;
 
   if (loading) {
-    showcaseContent = <p role="status">Carregando produtos...</p>;
+    firstShowcaseContent = <p role="status">Carregando produtos...</p>;
   } else if (error) {
-    showcaseContent = <p role="alert">{error}</p>;
+    firstShowcaseContent = <p role="alert">{error}</p>;
   } else if (products.length === 0) {
     // Durante o carregamento products também é [], então o vazio só é avaliado depois.
-    showcaseContent = <p>Nenhum produto disponível no momento.</p>;
+    firstShowcaseContent = <p>Nenhum produto disponível no momento.</p>;
   } else {
-    showcaseContent = (
-      <>
-        <ProductShowcase
-          carouselLabel="Carrossel de produtos 1"
-          title="Produtos relacionados"
-          products={products}
-          onSelectProduct={setSelectedProduct}
-          withTabs
-        />
-        <ProductShowcase
-          carouselLabel="Carrossel de produtos 2"
-          title="Produtos relacionados"
-          products={products}
-          onSelectProduct={setSelectedProduct}
-        />
-        <ProductShowcase
-          carouselLabel="Carrossel de produtos 3"
-          title="Produtos relacionados"
-          products={products}
-          onSelectProduct={setSelectedProduct}
-        />
-      </>
+    firstShowcaseContent = (
+      <ProductShowcase
+        carouselLabel="Carrossel de produtos 1"
+        title="Produtos relacionados"
+        products={products}
+        onSelectProduct={setSelectedProduct}
+        withTabs
+      />
     );
   }
 
@@ -54,8 +45,39 @@ export default function App() {
       <main>
         <Hero />
         <CategoryList />
-        <div className={styles.showcases}>{showcaseContent}</div>
+        <div className={styles.sections}>
+          <div className={hasProducts ? undefined : styles.state}>
+            {firstShowcaseContent}
+          </div>
+
+          <PromoBanners />
+
+          {hasProducts && (
+            <ProductShowcase
+              carouselLabel="Carrossel de produtos 2"
+              title="Produtos relacionados"
+              products={products}
+              onSelectProduct={setSelectedProduct}
+            />
+          )}
+
+          <PromoBanners />
+          <BrandList />
+
+          {hasProducts && (
+            <ProductShowcase
+              carouselLabel="Carrossel de produtos 3"
+              title="Produtos relacionados"
+              products={products}
+              onSelectProduct={setSelectedProduct}
+            />
+          )}
+
+          <Newsletter />
+        </div>
       </main>
+
+      <Footer />
 
       {selectedProduct && (
         <ProductModal

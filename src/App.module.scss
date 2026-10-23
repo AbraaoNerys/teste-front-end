@@ -1,14 +1,20 @@
-.showcases {
+.sections {
   margin-top: 90px;
 }
 
-// Espaçamento provisório; será substituído pelos banners na etapa G.
-.showcases > section + section {
-  margin-top: 80px;
+.sections > * + * {
+  margin-top: 90px;
 }
 
-.showcases > p {
+.state {
+  display: grid;
   width: 1280px;
+  height: 613px;
   margin: 0 auto;
+  place-items: center;
+}
+
+.state > p {
+  margin: 0;
   text-align: center;
 }
