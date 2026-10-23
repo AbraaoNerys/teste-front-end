@@ -1,5 +1,7 @@
+import { ProductShowcase } from './components/ProductShowcase/ProductShowcase';
 import { useProducts } from './hooks/useProducts';
-import { formatPrice, formatInstallment } from './utils/format';
+import type { Product } from './types/product';
+import styles from './App.module.scss';
 
 export default function App() {
   const { products, loading, error } = useProducts();
@@ -10,13 +12,29 @@ export default function App() {
   // Durante o carregamento products também é [], então o vazio só é avaliado depois.
   if (products.length === 0) return <p>Nenhum produto disponível no momento.</p>;
 
+  // Handler provisório: substituir na etapa F pela abertura do modal.
+  const handleSelectProduct = (product: Product) => {
+    console.log(product);
+  };
+
   return (
-    <ul>
-      {products.map((p) => (
-        <li key={p.id}>
-          {p.name} | {p.category} | {formatPrice(p.price)} | {formatInstallment(p.price)}
-        </li>
-      ))}
-    </ul>
+    <main className={styles.main}>
+      <ProductShowcase
+        title="Produtos relacionados"
+        products={products}
+        onSelectProduct={handleSelectProduct}
+        withTabs
+      />
+      <ProductShowcase
+        title="Produtos relacionados"
+        products={products}
+        onSelectProduct={handleSelectProduct}
+      />
+      <ProductShowcase
+        title="Produtos relacionados"
+        products={products}
+        onSelectProduct={handleSelectProduct}
+      />
+    </main>
   );
 }

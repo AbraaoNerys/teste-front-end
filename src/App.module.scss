@@ -1,0 +1,8 @@
+.main {
+  padding: 80px 0;
+}
+
+// Espaçamento provisório; será substituído pelos banners na etapa G.
+.main > section + section {
+  margin-top: 80px;
+}
