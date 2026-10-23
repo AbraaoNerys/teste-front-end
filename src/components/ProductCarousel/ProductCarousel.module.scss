@@ -1,0 +1,84 @@
+@use '../../styles/variables' as *;
+
+.carousel {
+  --card-width: 304px;
+  --card-gap: 18px;
+
+  position: relative;
+  width: 1364px;
+  margin: 0 auto;
+}
+
+.viewport {
+  width: calc(
+    var(--visible) * var(--card-width) + (var(--visible) - 1) * var(--card-gap)
+  );
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: var(--card-gap);
+  transform: translateX(
+    calc(var(--index) * -1 * (var(--card-width) + var(--card-gap)))
+  );
+}
+
+.item {
+  flex: 0 0 var(--card-width);
+  width: var(--card-width);
+}
+
+.arrow {
+  position: absolute;
+  top: 246px;
+  z-index: 1;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: $dark-gray;
+  background: #fff;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  place-items: center;
+}
+
+.arrow:hover:not(:disabled) {
+  box-shadow: 0 3px 13px rgba(0, 0, 0, 0.3);
+}
+
+.arrow:focus-visible {
+  outline: 2px solid $blue;
+  outline-offset: 2px;
+}
+
+.arrow:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.previous {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.next .chevron {
+  transform: rotate(180deg);
+}
+
+.chevron {
+  display: block;
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}

@@ -1,0 +1,48 @@
+@use '../../styles/variables' as *;
+
+.titleBlock {
+  text-align: center;
+}
+
+.titleRow {
+  display: grid;
+  grid-template-columns: 360px auto 360px;
+  column-gap: 34px;
+  align-items: center;
+  width: 1138px;
+  height: 45px;
+  margin: 0 auto;
+}
+
+.line {
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.title {
+  margin: 0;
+  color: $blue;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.seeAll {
+  display: inline-block;
+  margin-top: 4px;
+  color: $dark-gray;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 23px;
+  text-decoration: none;
+}
+
+.seeAll:hover {
+  color: $blue;
+}
+
+.seeAll:focus-visible {
+  outline: 2px solid $blue;
+  outline-offset: 2px;
+}

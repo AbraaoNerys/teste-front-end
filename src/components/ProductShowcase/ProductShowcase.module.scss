@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+
+.showcase {
+  margin: 0 auto;
+}
+
+.carouselWrapper {
+  margin-top: 24px;
+}
+
+.empty {
+  width: 1280px;
+  margin: 24px auto 0;
+  color: $dark-gray;
+  text-align: center;
+}
