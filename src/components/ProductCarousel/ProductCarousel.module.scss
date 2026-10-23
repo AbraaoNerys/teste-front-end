@@ -32,10 +32,11 @@
 .item {
   flex: 0 0 var(--card-width);
   width: var(--card-width);
-  transition: transform 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
-.item[inert]{
+.item[inert] {
+  // Evita que a sombra dos cards vizinhos vaze como uma faixa cinza.
   opacity: 0;
 }
 
@@ -90,4 +91,11 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .item {
+    transition: none;
+  }
 }
